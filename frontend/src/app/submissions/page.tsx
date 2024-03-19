@@ -20,6 +20,18 @@ interface CodeSubs {
   output: string | null;
   timestamp: string;
 }
+
+interface LangMap {
+  [key: string]: string;
+}
+
+const langMap: LangMap = {
+  cpp: "C++",
+  java: "Java",
+  js: "Javascript",
+  py: "Python",
+};
+
 function formatRelativeTime(timestamp: any) {
   var msPerMinute = 60 * 1000;
   var msPerHour = msPerMinute * 60;
@@ -72,14 +84,14 @@ function Submissions() {
       <Table className="">
         <TableHeader>
           <TableRow>
-            <TableHead>Sl</TableHead>
+            {/* <TableHead>Sl</TableHead> */}
             <TableHead>Uid</TableHead>
             <TableHead>Username</TableHead>
             <TableHead>Lang</TableHead>
             <TableHead>Code</TableHead>
             <TableHead>Input</TableHead>
-            <TableHead>Submitted on</TableHead>
             <TableHead>Output</TableHead>
+            <TableHead>Submitted on</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -87,19 +99,30 @@ function Submissions() {
             subdata.length != 0 &&
             subdata.map((row, i) => (
               <TableRow key={i}>
-                <TableCell className="font-medium">{row.sl}</TableCell>
+                {/* <TableCell className="font-medium">{row.sl}</TableCell> */}
                 <TableCell>{row.uid}</TableCell>
-                <TableCell>{row.sl}</TableCell>
                 <TableCell>{row.username}</TableCell>
-                <TableCell>{row.language}</TableCell>
+                <TableCell>
+                  {langMap[row.language as keyof LangMap]
+                    ? langMap[row.language as keyof LangMap]
+                    : row.language}
+                </TableCell>
                 <TableCell>
                   {row.code.length > 100
                     ? `${row.code?.substring(0, 99)} ...`
                     : row.code}
                 </TableCell>
-                <TableCell>{row.input !== null && row.input}</TableCell>
-                <TableCell>{row.output !== null && row.output}</TableCell>
                 <TableCell>
+                  {row.input !== null && row.input.length > 100
+                    ? `${row.input?.substring(0, 99)} ...`
+                    : row.input}
+                </TableCell>
+                <TableCell>
+                  {row.output !== null && row.output.length > 100
+                    ? `${row.output?.substring(0, 99)} ...`
+                    : row.output}
+                </TableCell>
+                <TableCell className=" min-w-[140px]">
                   {formatRelativeTime(row.timestamp)?.toString()}
                 </TableCell>
               </TableRow>
