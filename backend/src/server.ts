@@ -2,11 +2,9 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import { SERVER_PORT } from "./config/env";
 import connectDB from "./db/connect";
-import { PrismaClient } from "@prisma/client";
-import crypto from "crypto";
+import router from "./routes/router";
 
 const app: Express = express();
-const prisma = new PrismaClient();
 
 // use CORS
 app.use(
@@ -23,10 +21,8 @@ app.use(express.json());
 // parse cookie
 // app.use(cookieParser());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-  main();
-});
+// using router
+app.use("/", router);
 
 // ERROR middleware (must be in last)
 // app.use(ErrorMiddleware);
@@ -45,22 +41,6 @@ const startServer = async () => {
 };
 
 startServer();
-
-async function main() {
-  const uid: string = crypto.randomBytes(16).toString("hex").substring(0, 6);
-  console.log(uid);
-  //... you will write your Prisma Client queries here
-  // await prisma.codeSubs.create({
-  //   data: {
-  //     uid: uid,
-  //     username: "spidermanxx4",
-  //     language: "python",
-  //     code: `print("Hello Guys")`,
-  //     input: `4`,
-  //     output: `10`,
-  //   },
-  // });
-}
 
 // main()
 //   .then(async () => {
