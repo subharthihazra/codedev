@@ -1,11 +1,9 @@
 import crypto from "crypto";
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
 import langToId from "../config/lang";
 import axios from "axios";
 import { RAPID_API_HOST, RAPID_API_KEY, RAPID_API_URL } from "../config/env";
-import { stderr } from "process";
-const prisma = new PrismaClient();
+import prisma from "../config/prisma";
 
 async function StoreCode(req: Request, res: Response) {
   const { username, language, code, input } = req.body;
