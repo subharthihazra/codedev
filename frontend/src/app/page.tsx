@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React from "react";
 import {
   CardTitle,
   CardDescription,
@@ -22,17 +23,32 @@ import {
 import axios from "axios";
 
 function Home() {
-  async function handleForm(e: React.SyntheticEvent<EventTarget>) {
+  async function handleForm(e: any) {
     e.preventDefault();
 
-    const formData: any = new FormData(e.target as HTMLFormElement);
+    const formData: {
+      username: string;
+      language: string;
+      code: string;
+      input: string;
+    } = {
+      username: e.target.username.value,
+      language: e.target.language.value,
+      code: e.target.code.value,
+      input: e.target.input.value,
+    };
 
     if (
-      formData?.username?.trim.toString() != "" &&
-      formData?.code?.trim().toString() != ""
+      formData?.username?.trim()?.toString() != "" &&
+      formData?.code?.trim()?.toString() != ""
     ) {
       try {
-        const response = await axios.post("/api/submit-code", formData);
+        console.log(formData);
+
+        const response = await axios.post(
+          "http://localhost:5000/codesub",
+          formData
+        );
         console.log("Code submission successful:", response.data);
 
         // Reset the form
@@ -44,25 +60,29 @@ function Home() {
   }
   return (
     <div className="">
-      <Card
-        key="1"
-        className="w-[calc(100%-20px*2)] max-w-3xl mx-5 md:mx-auto my-10"
-      >
-        <CardHeader>
-          <CardTitle>Submit Your Code</CardTitle>
-          <CardDescription>
-            Enter your information and code to submit
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <form onSubmit={handleForm}>
+      <form onSubmit={handleForm}>
+        <Card
+          key="1"
+          className="w-[calc(100%-20px*2)] max-w-3xl mx-5 md:mx-auto my-10"
+        >
+          <CardHeader>
+            <CardTitle>Submit Your Code</CardTitle>
+            <CardDescription>
+              Enter your information and code to submit
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
-              <Input id="username" placeholder="Enter your username" />
+              <Input
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="language">Preferred Code Language</Label>
-              <Select>
+              <Select name="language">
                 <SelectTrigger className="">
                   <SelectValue placeholder="Select a Preferred Code Language " />
                 </SelectTrigger>
@@ -83,6 +103,7 @@ function Home() {
               <Textarea
                 className="min-h-[200px]"
                 id="code"
+                name="code"
                 placeholder="Enter your source code"
               />
             </div>
@@ -92,15 +113,16 @@ function Home() {
               <Textarea
                 className="min-h-[100px]"
                 id="stdin"
+                name="input"
                 placeholder="Enter your standard input"
               />
             </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <Button className="ml-auto">Submit</Button>
-        </CardFooter>
-      </Card>
+          </CardContent>
+          <CardFooter>
+            <Button className="ml-auto">Submit</Button>
+          </CardFooter>
+        </Card>
+      </form>
     </div>
   );
 }
