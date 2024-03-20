@@ -44,7 +44,7 @@ function Home() {
     ) {
       try {
         const response = await axios.post(
-          `${process.env.BACKEND_PATH}/codesub`,
+          `${process.env.NEXT_PUBLIC_BACKEND_PATH}/codesub`,
           formData
         );
 
