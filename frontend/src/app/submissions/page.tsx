@@ -43,14 +43,14 @@ const langMap: LangMap = {
   py: "Python",
 };
 
-function formatRelativeTime(timestamp: any) {
-  var msPerMinute = 60 * 1000;
-  var msPerHour = msPerMinute * 60;
-  var msPerDay = msPerHour * 24;
-  var msPerMonth = msPerDay * 30;
-  var msPerYear = msPerDay * 365;
+function formatRelativeTime(timestamp: string) {
+  let msPerMinute = 60 * 1000;
+  let msPerHour = msPerMinute * 60;
+  let msPerDay = msPerHour * 24;
+  let msPerMonth = msPerDay * 30;
+  let msPerYear = msPerDay * 365;
 
-  var elapsed = Date.now() - new Date(timestamp).getTime();
+  let elapsed = Date.now() - new Date(timestamp).getTime();
   // console.log(elapsed);
 
   if (elapsed < msPerMinute) {
