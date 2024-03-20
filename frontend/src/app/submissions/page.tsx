@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import axios from "axios";
 import { Label } from "@radix-ui/react-label";
+import Link from "next/link";
 
 interface CodeSubs {
   sl: number;
@@ -287,9 +288,9 @@ function Submissions() {
         <CodeViewer ref={dialogTrigger} data={dialogData} />
       </div>
       <div className=" text-slate-900 text-md text-center my-2">
-        <a href="https://codedev-learn.vercel.app" target="_blank">
+        <Link href="/" target="_blank">
           Go to Code Submissions {`->`}
-        </a>
+        </Link>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { FormEvent } from "react";
 import {
   CardTitle,
   CardDescription,
@@ -21,9 +21,10 @@ import {
   Select,
 } from "@/components/ui/select";
 import axios from "axios";
+import Link from "next/link";
 
 function Home() {
-  async function handleForm(e: SubmitEvent) {
+  async function handleForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
     const formData: {
@@ -122,9 +123,9 @@ function Home() {
         </Card>
       </form>
       <div className=" text-slate-900 text-md text-center my-2">
-        <a href="https://codedev-learn.vercel.app/submissions" target="_blank">
+        <Link href="/submissions" target="_blank">
           Go to Dashboard {`->`}
-        </a>
+        </Link>
       </div>
     </div>
   );
