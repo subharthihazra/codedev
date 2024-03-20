@@ -9,4 +9,6 @@ export const {
   RAPID_API_KEY,
   RAPID_API_URL,
   REDIS_DEF_EXP,
+  REDIS_SERVICE_NAME,
+  REDIS_PORT,
 } = process.env;
