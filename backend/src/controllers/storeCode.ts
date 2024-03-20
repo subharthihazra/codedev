@@ -8,7 +8,7 @@ import prisma from "../config/prisma";
 async function StoreCode(req: Request, res: Response) {
   const { username, language, code, input } = req.body;
   const uid: string = crypto.randomBytes(16).toString("hex").substring(0, 6);
-  console.log(uid);
+  // console.log(uid);
 
   try {
     await prisma.codeSubs.create({
@@ -48,7 +48,7 @@ async function StoreCode(req: Request, res: Response) {
   };
   try {
     const { data } = await axios.request(options);
-    console.log(data);
+    // console.log(data);
     data.token && checkStatus(uid, data.token);
   } catch (err) {
     console.log("err", err);
@@ -77,7 +77,7 @@ async function checkStatus(uid: string, token: string) {
       }, 2000);
       return;
     } else {
-      console.log("response.data", data);
+      // console.log("response.data", data);
       let output = null;
       if (data?.stdout != null) {
         output = atob(data.stdout);
@@ -103,7 +103,7 @@ async function storeOutput(uid: string, output: string) {
         output,
       },
     });
-    console.log("Updated code submission:", updatedCodeSub);
+    // console.log("Updated code submission:", updatedCodeSub);
   } catch (error) {
     console.error("Error updating code submission:", error);
   }

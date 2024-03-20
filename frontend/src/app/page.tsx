@@ -43,13 +43,10 @@ function Home() {
       formData?.code?.trim()?.toString() != ""
     ) {
       try {
-        console.log(formData);
-
         const response = await axios.post(
           "http://localhost:5000/codesub",
           formData
         );
-        console.log("Code submission successful:", response.data);
 
         // Reset the form
         (e.target as HTMLFormElement).reset();

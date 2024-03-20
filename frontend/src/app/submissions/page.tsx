@@ -172,7 +172,7 @@ function Submissions() {
       try {
         const { data } = await axios.get("http://localhost:5000/getsubs");
         // Assuming the response contains JSON data
-        console.log(data);
+        // console.log(data);
         if (data?.msg === "success" && data.data) {
           setSubdata(data.data);
           setCurState("idle");
