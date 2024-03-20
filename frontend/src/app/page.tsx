@@ -23,7 +23,7 @@ import {
 import axios from "axios";
 import Link from "next/link";
 
-function Home() {
+function Submitcode() {
   async function handleForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
@@ -62,7 +62,7 @@ function Home() {
       <form onSubmit={handleForm}>
         <Card
           key="1"
-          className="w-[calc(100%-20px*2)] max-w-3xl mx-5 md:mx-auto my-10"
+          className="w-[calc(100%-20px*2)] max-w-3xl mx-5 md:mx-auto my-10 shadow-[0_0_5px_3px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.05)]"
         >
           <CardHeader>
             <CardTitle>Submit Your Code</CardTitle>
@@ -131,4 +131,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Submitcode;
