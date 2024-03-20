@@ -195,8 +195,8 @@ function Submissions() {
 
   return (
     <>
-      <div className=" font-mono">
-        <Table className="">
+      <div className="font-mono">
+        <Table className=" bg-white">
           <TableHeader>
             <TableRow>
               <TableHead>Uid</TableHead>
