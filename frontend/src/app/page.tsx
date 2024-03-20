@@ -44,7 +44,7 @@ function Home() {
     ) {
       try {
         const response = await axios.post(
-          "http://localhost:5000/codesub",
+          `${process.env.BACKEND_PATH}/codesub`,
           formData
         );
 

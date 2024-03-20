@@ -170,7 +170,7 @@ function Submissions() {
   useEffect(function () {
     async function getSubdatas() {
       try {
-        const { data } = await axios.get("http://localhost:5000/getsubs");
+        const { data } = await axios.get(`${process.env.BACKEND_PATH}/getsubs`);
         // Assuming the response contains JSON data
         // console.log(data);
         if (data?.msg === "success" && data.data) {
