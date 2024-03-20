@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
-import { SERVER_PORT } from "./config/env";
+import { CORS_WHITELIST, SERVER_PORT } from "./config/env";
 import connectDB from "./db/connect";
 import router from "./routes/router";
 
@@ -9,12 +9,7 @@ const app: Express = express();
 // use CORS
 app.use(
   cors({
-    origin: [
-      "https://codedev-learn.vercel.app/",
-      "https://codedev-learn.vercel.app",
-      "http://codedev-learn.vercel.app/",
-      "http://codedev-learn.vercel.app",
-    ],
+    origin: CORS_WHITELIST,
     credentials: true,
     exposedHeaders: ["set-cookie"],
   })
