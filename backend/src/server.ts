@@ -9,7 +9,14 @@ const app: Express = express();
 // use CORS
 app.use(
   cors({
-    origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+    origin: [
+      "http://127.0.0.1:3000",
+      "http://localhost:3000",
+      "https://codedev-learn.vercel.app/",
+      "https://codedev-learn.vercel.app",
+      "http://codedev-learn.vercel.app/",
+      "http://codedev-learn.vercel.app",
+    ],
     credentials: true,
     exposedHeaders: ["set-cookie"],
   })
