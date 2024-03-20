@@ -5,3 +5,5 @@
 Code Submit Link: [https://codedev-learn.vercel.app](https://codedev-learn.vercel.app)
 
 Code Submissions Dashboard Link: [https://codedev-learn.vercel.app/submissions](https://codedev-learn.vercel.app/submissions)
+
+### Redis is used for caching and judge0 for output
