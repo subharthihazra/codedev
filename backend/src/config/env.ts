@@ -8,4 +8,5 @@ export const {
   RAPID_API_HOST,
   RAPID_API_KEY,
   RAPID_API_URL,
+  REDIS_DEF_EXP,
 } = process.env;
