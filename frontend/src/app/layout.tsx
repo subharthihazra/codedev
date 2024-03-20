@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate-100 min-h-[100vh]`}>
         <Header />
         {children}
         <div className=" text-slate-700 text-sm text-center my-2">
