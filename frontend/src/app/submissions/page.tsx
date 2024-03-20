@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   TableHead,
   TableRow,
@@ -9,6 +9,14 @@ import {
   Table,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import axios from "axios";
 
 interface CodeSubs {
@@ -91,9 +99,38 @@ function formatRelativeTime(timestamp: any) {
   }
 }
 
+const CodeViewer = React.forwardRef(
+  (
+    { data }: { data: CodeSubs | null },
+    ref: React.ForwardedRef<HTMLButtonElement>
+  ) => {
+    return (
+      <Dialog>
+        <DialogTrigger
+          ref={ref as React.LegacyRef<HTMLButtonElement>}
+        ></DialogTrigger>
+        <DialogContent className=" font-mono">
+          {data && (
+            <DialogHeader>
+              <DialogTitle>{data.username}</DialogTitle>
+              <DialogDescription>
+                {data.uid}
+                <pre>{data.code}</pre>
+              </DialogDescription>
+            </DialogHeader>
+          )}
+        </DialogContent>
+      </Dialog>
+    );
+  }
+);
+CodeViewer.displayName = "CodeViewer";
+
 function Submissions() {
   const [subdata, setSubdata] = useState<CodeSubs[]>([]);
   const [curState, setCurState] = useState<string>("loading");
+  const dialogTrigger = useRef<HTMLButtonElement>(null);
+  const [dialogData, setDialogData] = useState<CodeSubs | null>(null);
 
   useEffect(function () {
     async function getSubdatas() {
@@ -112,6 +149,11 @@ function Submissions() {
     }
     getSubdatas();
   }, []);
+
+  function handleView(data: any) {
+    setDialogData(data);
+    dialogTrigger.current && dialogTrigger.current.click();
+  }
 
   return (
     <div className=" font-mono">
@@ -158,10 +200,15 @@ function Submissions() {
           {curState === "idle" &&
             subdata.length != 0 &&
             subdata.map((row, i) => (
-              <TableRow key={i}>
+              <TableRow key={i} onClick={() => handleView(row)}>
                 {/* <TableCell className="font-medium">{row.sl}</TableCell> */}
                 <TableCell>{row.uid}</TableCell>
-                <TableCell>{row.username}</TableCell>
+                <TableCell>
+                  {" "}
+                  {row.username.length > 15
+                    ? `${row.username?.substring(0, 14)}...`
+                    : row.username}
+                </TableCell>
                 <TableCell>
                   {langMap[row.language as keyof LangMap]
                     ? langMap[row.language as keyof LangMap]
@@ -196,6 +243,7 @@ function Submissions() {
       {curState === "error" && (
         <div className="mt-10 text-center">Something went wrong!</div>
       )}
+      <CodeViewer ref={dialogTrigger} data={dialogData} />
     </div>
   );
 }

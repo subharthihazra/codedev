@@ -7,33 +7,44 @@ import { REDIS_DEF_EXP } from "../config/env";
 const client = redis.createClient();
 
 async function getDataFromDB() {
-  const allCodeSubs = await prisma.codeSubs.findMany();
-  console.log("All code submissions:", allCodeSubs);
-  return allCodeSubs;
+  try {
+    const allCodeSubs = await prisma.codeSubs.findMany();
+    console.log("All code submissions:", allCodeSubs);
+    return allCodeSubs;
+  } catch (error) {
+    // console.error("Error fetching code submissions:", error);
+    throw new Error("Error fetching code submissions");
+  }
 }
 
 async function getSubs(req: Request, res: Response) {
   try {
-    const cachedData = await client.get("cachedData");
+    const cachedData = await client.get("subsData");
     if (cachedData) {
       // If data exists in the cache, return it
       res
         .status(200)
-        .json({ msg: "success", data: JSON.parse(cachedData), lolo: 5 });
+        .json({ msg: "success", lolo: "redis", data: JSON.parse(cachedData) });
     } else {
-      // If data is not in the cache, fetch it from the source
-      const dataToCache = await getDataFromDB();
+      let dataToCache;
+      try {
+        // If data is not in the cache, fetch it from the source
+        dataToCache = await getDataFromDB();
+      } catch (error) {
+        console.error("Error: ", error);
+        return res.status(500).json({ msg: "fail" });
+      }
       await client.setex(
         "subsData",
         String(REDIS_DEF_EXP),
         JSON.stringify(dataToCache)
       );
 
-      res.status(200).json({ msg: "success", data: dataToCache, gfui: 7 });
+      res.status(200).json({ msg: "success", lolo: "dir", data: dataToCache });
     }
-  } catch (error) {
-    console.error("Error fetching code submissions:", error);
-    res.status(500).json({ msg: "fail" });
+  } catch (err) {
+    let dataToCache = await getDataFromDB();
+    res.status(200).json({ msg: "success", lolo: "fnr", data: dataToCache });
   }
 }
 export default getSubs;
