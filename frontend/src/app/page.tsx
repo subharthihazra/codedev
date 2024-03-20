@@ -120,6 +120,11 @@ function Home() {
           </CardFooter>
         </Card>
       </form>
+      <div className=" text-slate-900 text-md text-center my-2">
+        <a href="https://codedev-learn.vercel.app/submissions" target="_blank">
+          Go to Dashboard {`->`}
+        </a>
+      </div>
     </div>
   );
 }
