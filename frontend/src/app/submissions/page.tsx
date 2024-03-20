@@ -8,6 +8,7 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
 import axios from "axios";
 
 interface CodeSubs {
@@ -43,17 +44,50 @@ function formatRelativeTime(timestamp: any) {
   // console.log(elapsed);
 
   if (elapsed < msPerMinute) {
-    return Math.round(elapsed / 1000) + " seconds ago";
+    return (
+      Math.round(elapsed / 1000) +
+      " second" +
+      (Math.round(elapsed / 1000) === 1 ? "" : "s") +
+      " ago"
+    );
   } else if (elapsed < msPerHour) {
-    return Math.round(elapsed / msPerMinute) + " minutes ago";
+    return (
+      Math.round(elapsed / msPerMinute) +
+      " minute" +
+      (Math.round(elapsed / msPerMinute) === 1 ? "" : "s") +
+      " ago"
+    );
   } else if (elapsed < msPerDay) {
-    return Math.round(elapsed / msPerHour) + " hours ago";
+    return (
+      Math.round(elapsed / msPerHour) +
+      " hour" +
+      (Math.round(elapsed / msPerHour) === 1 ? "" : "s") +
+      " ago"
+    );
   } else if (elapsed < msPerMonth) {
-    return "aprox. " + Math.round(elapsed / msPerDay) + " days ago";
+    return (
+      "aprox. " +
+      Math.round(elapsed / msPerDay) +
+      " day" +
+      (Math.round(elapsed / msPerDay) === 1 ? "" : "s") +
+      " ago"
+    );
   } else if (elapsed < msPerYear) {
-    return "aprox. " + Math.round(elapsed / msPerMonth) + " months ago";
+    return (
+      "aprox. " +
+      Math.round(elapsed / msPerMonth) +
+      " month" +
+      (Math.round(elapsed / msPerMonth) === 1 ? "" : "s") +
+      " ago"
+    );
   } else {
-    return "aprox. " + Math.round(elapsed / msPerYear) + " years ago";
+    return (
+      "aprox. " +
+      Math.round(elapsed / msPerYear) +
+      " year" +
+      (Math.round(elapsed / msPerYear) === 1 ? "" : "s") +
+      " ago"
+    );
   }
 }
 
@@ -80,7 +114,7 @@ function Submissions() {
   }, []);
 
   return (
-    <div>
+    <div className=" font-mono">
       <Table className="">
         <TableHeader>
           <TableRow>
@@ -91,10 +125,36 @@ function Submissions() {
             <TableHead>Code</TableHead>
             <TableHead>Input</TableHead>
             <TableHead>Output</TableHead>
-            <TableHead>Submitted on</TableHead>
+            <TableHead>Submitted</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
+          {curState === "loading" &&
+            Array.from(Array(5).keys()).map((each, i) => (
+              <TableRow key={i}>
+                <TableCell>
+                  <Skeleton className="h-4 w-[100px]" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-[100px]" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-[90px]" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-[350px]" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-[100px]" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-[300px]" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="h-4 w-[145px]" />
+                </TableCell>
+              </TableRow>
+            ))}
           {curState === "idle" &&
             subdata.length != 0 &&
             subdata.map((row, i) => (
@@ -122,7 +182,7 @@ function Submissions() {
                     ? `${row.output?.substring(0, 99)} ...`
                     : row.output}
                 </TableCell>
-                <TableCell className=" min-w-[140px]">
+                <TableCell className=" min-w-[145px]">
                   {formatRelativeTime(row.timestamp)?.toString()}
                 </TableCell>
               </TableRow>
@@ -132,9 +192,7 @@ function Submissions() {
       {curState === "idle" && subdata.length === 0 && (
         <div className="mt-10 text-center">No submission yet!</div>
       )}
-      {curState === "loading" && (
-        <div className="mt-10 text-center">Loading ...</div>
-      )}
+
       {curState === "error" && (
         <div className="mt-10 text-center">Something went wrong!</div>
       )}
