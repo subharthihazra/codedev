@@ -20,6 +20,8 @@ import {
 import axios from "axios";
 import { Label } from "@radix-ui/react-label";
 import Link from "next/link";
+import CodeViewer from "@/components/Codeviewer";
+import formatRelativeTime from "@/utils/formatRelativeTime";
 
 interface CodeSubs {
   sl: number;
@@ -42,125 +44,6 @@ const langMap: LangMap = {
   js: "Javascript",
   py: "Python",
 };
-
-function formatRelativeTime(timestamp: string) {
-  let msPerMinute = 60 * 1000;
-  let msPerHour = msPerMinute * 60;
-  let msPerDay = msPerHour * 24;
-  let msPerMonth = msPerDay * 30;
-  let msPerYear = msPerDay * 365;
-
-  let elapsed = Date.now() - new Date(timestamp).getTime();
-  // console.log(elapsed);
-
-  if (elapsed < msPerMinute) {
-    return (
-      Math.round(elapsed / 1000) +
-      " second" +
-      (Math.round(elapsed / 1000) === 1 ? "" : "s") +
-      " ago"
-    );
-  } else if (elapsed < msPerHour) {
-    return (
-      Math.round(elapsed / msPerMinute) +
-      " minute" +
-      (Math.round(elapsed / msPerMinute) === 1 ? "" : "s") +
-      " ago"
-    );
-  } else if (elapsed < msPerDay) {
-    return (
-      Math.round(elapsed / msPerHour) +
-      " hour" +
-      (Math.round(elapsed / msPerHour) === 1 ? "" : "s") +
-      " ago"
-    );
-  } else if (elapsed < msPerMonth) {
-    return (
-      "aprox. " +
-      Math.round(elapsed / msPerDay) +
-      " day" +
-      (Math.round(elapsed / msPerDay) === 1 ? "" : "s") +
-      " ago"
-    );
-  } else if (elapsed < msPerYear) {
-    return (
-      "aprox. " +
-      Math.round(elapsed / msPerMonth) +
-      " month" +
-      (Math.round(elapsed / msPerMonth) === 1 ? "" : "s") +
-      " ago"
-    );
-  } else {
-    return (
-      "aprox. " +
-      Math.round(elapsed / msPerYear) +
-      " year" +
-      (Math.round(elapsed / msPerYear) === 1 ? "" : "s") +
-      " ago"
-    );
-  }
-}
-
-const CodeViewer = React.forwardRef(
-  (
-    { data }: { data: CodeSubs | null },
-    ref: React.ForwardedRef<HTMLButtonElement>
-  ) => {
-    return (
-      <Dialog>
-        <DialogTrigger
-          ref={ref as React.LegacyRef<HTMLButtonElement>}
-        ></DialogTrigger>
-        <DialogContent className="flex flex-col font-mono max-w-fit">
-          {data && (
-            <DialogHeader>
-              <DialogTitle>{data.username}</DialogTitle>
-              <DialogDescription
-                className="text-black flex flex-col w-full overflow-auto max-h-[calc(100vh-60px*2)] p-1"
-                asChild
-              >
-                <div>
-                  <div className="my-1 bg-slate-200 px-[5px] py-[2px] rounded-lg w-fit">
-                    {data.uid}
-                  </div>
-
-                  <div className="my-1">
-                    Language: {langMap[data.language as keyof LangMap]}
-                  </div>
-                  <div className="my-1">
-                    {new Date(data.timestamp).toString()}
-                  </div>
-
-                  <Label className="my-1 text-lg">Code</Label>
-                  <div className="w-full">
-                    <pre className="rounded-lg bg-slate-100 p-2 overflow-auto">
-                      {data.code}
-                    </pre>
-                  </div>
-
-                  <Label className="my-1 text-lg">Standard Input (stdin)</Label>
-                  <div className="w-full">
-                    <pre className="rounded-lg bg-slate-100 p-2 overflow-auto">
-                      {data.input}
-                    </pre>
-                  </div>
-
-                  <Label className="my-1 text-lg">Generated Output</Label>
-                  <div className="w-full">
-                    <pre className="rounded-lg bg-slate-100 p-2 overflow-auto">
-                      {data.output}
-                    </pre>
-                  </div>
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-          )}
-        </DialogContent>
-      </Dialog>
-    );
-  }
-);
-CodeViewer.displayName = "CodeViewer";
 
 function Submissions() {
   const [subdata, setSubdata] = useState<CodeSubs[]>([]);
