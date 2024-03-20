@@ -9,7 +9,7 @@ const app: Express = express();
 // use CORS
 app.use(
   cors({
-    origin: CORS_WHITELIST,
+    origin: (CORS_WHITELIST as string).split(","),
     credentials: true,
     exposedHeaders: ["set-cookie"],
   })
