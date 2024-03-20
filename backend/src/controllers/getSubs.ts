@@ -4,15 +4,16 @@ import redis from "ioredis";
 import { REDIS_DEF_EXP, REDIS_PORT, REDIS_SERVICE_NAME } from "../config/env";
 
 // Create a Redis client
+
 const client = new redis({
-  host: String(REDIS_SERVICE_NAME),
-  port: Number(String(REDIS_PORT)),
+  host: REDIS_SERVICE_NAME as string,
+  port: Number(REDIS_PORT),
 });
 
 async function getDataFromDB() {
   try {
     const allCodeSubs = await prisma.codeSubs.findMany();
-    console.log("All code submissions:", allCodeSubs);
+    // console.log("All code submissions:", allCodeSubs);
     return allCodeSubs;
   } catch (error) {
     // console.error("Error fetching code submissions:", error);
