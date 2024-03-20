@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import axios from "axios";
+import { Label } from "@radix-ui/react-label";
 
 interface CodeSubs {
   sl: number;
@@ -109,13 +110,47 @@ const CodeViewer = React.forwardRef(
         <DialogTrigger
           ref={ref as React.LegacyRef<HTMLButtonElement>}
         ></DialogTrigger>
-        <DialogContent className=" font-mono">
+        <DialogContent className="flex flex-col font-mono max-w-fit">
           {data && (
             <DialogHeader>
               <DialogTitle>{data.username}</DialogTitle>
-              <DialogDescription>
-                {data.uid}
-                <pre>{data.code}</pre>
+              <DialogDescription
+                className="text-black flex flex-col w-full overflow-auto max-h-[calc(100vh-60px*2)] p-1"
+                asChild
+              >
+                <div>
+                  <div className="my-1 bg-slate-200 px-[5px] py-[2px] rounded-lg w-fit">
+                    {data.uid}
+                  </div>
+
+                  <div className="my-1">
+                    Language: {langMap[data.language as keyof LangMap]}
+                  </div>
+                  <div className="my-1">
+                    {new Date(data.timestamp).toString()}
+                  </div>
+
+                  <Label className="my-1 text-lg">Code</Label>
+                  <div className="w-full">
+                    <pre className="rounded-lg bg-slate-100 p-2 overflow-auto">
+                      {data.code}
+                    </pre>
+                  </div>
+
+                  <Label className="my-1 text-lg">Standard Input (stdin)</Label>
+                  <div className="w-full">
+                    <pre className="rounded-lg bg-slate-100 p-2 overflow-auto">
+                      {data.input}
+                    </pre>
+                  </div>
+
+                  <Label className="my-1 text-lg">Generated Output</Label>
+                  <div className="w-full">
+                    <pre className="rounded-lg bg-slate-100 p-2 overflow-auto">
+                      {data.output}
+                    </pre>
+                  </div>
+                </div>
               </DialogDescription>
             </DialogHeader>
           )}
@@ -202,7 +237,11 @@ function Submissions() {
             subdata.map((row, i) => (
               <TableRow key={i} onClick={() => handleView(row)}>
                 {/* <TableCell className="font-medium">{row.sl}</TableCell> */}
-                <TableCell>{row.uid}</TableCell>
+                <TableCell>
+                  <span className=" bg-slate-200 px-[5px] py-[2px] rounded-lg">
+                    {row.uid}
+                  </span>
+                </TableCell>
                 <TableCell>
                   {" "}
                   {row.username.length > 15
