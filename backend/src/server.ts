@@ -10,8 +10,6 @@ const app: Express = express();
 app.use(
   cors({
     origin: [
-      "http://127.0.0.1:3000",
-      "http://localhost:3000",
       "https://codedev-learn.vercel.app/",
       "https://codedev-learn.vercel.app",
       "http://codedev-learn.vercel.app/",
@@ -43,13 +41,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-// main()
-//   .then(async () => {
-//     await prisma.$disconnect();
-//   })
-//   .catch(async (e) => {
-//     console.error(e);
-//     await prisma.$disconnect();
-//     process.exit(1);
-//   });

@@ -198,7 +198,6 @@ function Submissions() {
         <Table className="">
           <TableHeader>
             <TableRow>
-              {/* <TableHead>Sl</TableHead> */}
               <TableHead>Uid</TableHead>
               <TableHead>Username</TableHead>
               <TableHead>Lang</TableHead>
