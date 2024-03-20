@@ -18,14 +18,9 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 // parse json
 app.use(express.json());
-// parse cookie
-// app.use(cookieParser());
 
 // using router
 app.use("/", router);
-
-// ERROR middleware (must be in last)
-// app.use(ErrorMiddleware);
 
 const startServer = async () => {
   try {
