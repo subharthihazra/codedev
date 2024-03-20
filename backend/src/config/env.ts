@@ -11,4 +11,5 @@ export const {
   REDIS_DEF_EXP,
   REDIS_SERVICE_NAME,
   REDIS_PORT,
+  CORS_WHITELIST,
 } = process.env;

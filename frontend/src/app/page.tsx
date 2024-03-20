@@ -23,7 +23,7 @@ import {
 import axios from "axios";
 
 function Home() {
-  async function handleForm(e: any) {
+  async function handleForm(e: SubmitEvent) {
     e.preventDefault();
 
     const formData: {
@@ -32,10 +32,10 @@ function Home() {
       code: string;
       input: string;
     } = {
-      username: e.target.username.value,
-      language: e.target.language.value,
-      code: e.target.code.value,
-      input: e.target.input.value,
+      username: (e.target as HTMLFormElement).username.value,
+      language: (e.target as HTMLFormElement).language.value,
+      code: (e.target as HTMLFormElement).code.value,
+      input: (e.target as HTMLFormElement).input.value,
     };
 
     if (
@@ -55,6 +55,7 @@ function Home() {
       }
     }
   }
+
   return (
     <div className="">
       <form onSubmit={handleForm}>
