@@ -25,9 +25,7 @@ async function getSubs(req: Request, res: Response) {
     const cachedData = await client.get("subsData");
     if (cachedData) {
       // If data exists in the cache, return it
-      res
-        .status(200)
-        .json({ msg: "success", lolo: "redis", data: JSON.parse(cachedData) });
+      res.status(200).json({ msg: "success", data: JSON.parse(cachedData) });
     } else {
       let dataToCache;
       try {
@@ -43,11 +41,11 @@ async function getSubs(req: Request, res: Response) {
         JSON.stringify(dataToCache)
       );
 
-      res.status(200).json({ msg: "success", lolo: "dir", data: dataToCache });
+      res.status(200).json({ msg: "success", data: dataToCache });
     }
   } catch (err) {
     let dataToCache = await getDataFromDB();
-    res.status(200).json({ msg: "success", lolo: "fnr", data: dataToCache });
+    res.status(200).json({ msg: "success", data: dataToCache });
   }
 }
 export default getSubs;
