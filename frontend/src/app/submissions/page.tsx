@@ -172,7 +172,7 @@ function Submissions() {
       </div>
       <div className=" text-slate-900 text-md text-center my-2">
         <Link href="/" target="_blank">
-          Go to Code Submissions {`->`}
+          Submit your Code {`->`}
         </Link>
       </div>
     </>
