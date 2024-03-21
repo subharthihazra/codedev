@@ -21,3 +21,5 @@ Code Submissions Dashboard Link (Page 2): [https://codedev-learn.vercel.app/subm
 - Used Redis for faster data serving through caching, with periodic cleaning to maintain system efficiency.
 
 - Used NEXT.JS and ShadCN UI in frontend.
+
+- Used Typescript in both backend and frontend for better consistency, maintainability, safety.
