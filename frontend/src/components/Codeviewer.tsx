@@ -44,12 +44,12 @@ const CodeViewer = React.forwardRef(
         <DialogContent className="flex flex-col font-mono max-w-fit">
           {data && (
             <DialogHeader>
-              <DialogTitle>{data.username}</DialogTitle>
+              <DialogTitle className="text-left">{data.username}</DialogTitle>
               <DialogDescription
                 className="text-black flex flex-col w-full overflow-auto max-h-[calc(100vh-60px*2)] p-1"
                 asChild
               >
-                <div>
+                <div className="text-left">
                   <div className="my-1 bg-slate-200 px-[5px] py-[2px] rounded-lg w-fit">
                     {data.uid}
                   </div>
