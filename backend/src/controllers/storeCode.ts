@@ -6,8 +6,21 @@ import { RAPID_API_HOST, RAPID_API_KEY, RAPID_API_URL } from "../config/env";
 import prisma from "../config/prisma";
 import client from "../config/redis";
 
+type ProgrammingLanguage = "js" | "py" | "java" | "cpp";
+
 async function StoreCode(req: Request, res: Response) {
-  const { username, language, code, input } = req.body;
+  const {
+    username,
+    language,
+    code,
+    input,
+  }: {
+    username: string;
+    language: string;
+    code: ProgrammingLanguage;
+    input: string;
+  } = req.body;
+
   const uid: string = crypto.randomBytes(16).toString("hex").substring(0, 6);
   // console.log(uid);
 
