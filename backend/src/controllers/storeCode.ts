@@ -4,6 +4,7 @@ import langToId from "../config/lang";
 import axios from "axios";
 import { RAPID_API_HOST, RAPID_API_KEY, RAPID_API_URL } from "../config/env";
 import prisma from "../config/prisma";
+import client from "config/redis";
 
 async function StoreCode(req: Request, res: Response) {
   const { username, language, code, input } = req.body;
@@ -74,7 +75,7 @@ async function checkStatus(uid: string, token: string) {
       // still processing
       setTimeout(() => {
         checkStatus(uid, token);
-      }, 2000);
+      }, 1000);
       return;
     } else {
       // console.log("response.data", data);
@@ -85,7 +86,8 @@ async function checkStatus(uid: string, token: string) {
         output = atob(data.stderr);
       }
       if (output) {
-        storeOutput(uid, output);
+        await storeOutput(uid, output);
+        client.del("subsData");
       }
     }
   } catch (err) {
