@@ -71,7 +71,7 @@ function Submissions() {
     getSubdatas();
   }, []);
 
-  function handleView(data: any) {
+  function handleView(data: CodeSubs | null) {
     setDialogData(data);
     dialogTrigger.current && dialogTrigger.current.click();
   }
