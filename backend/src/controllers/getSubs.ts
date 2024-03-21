@@ -1,14 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../config/prisma";
-import redis from "ioredis";
-import { REDIS_DEF_EXP, REDIS_PORT, REDIS_SERVICE_NAME } from "../config/env";
-
-// Create a Redis client
-
-const client = new redis({
-  host: REDIS_SERVICE_NAME as string,
-  port: Number(REDIS_PORT),
-});
+import { REDIS_DEF_EXP } from "../config/env";
+import client from "config/redis";
 
 async function getDataFromDB() {
   try {
