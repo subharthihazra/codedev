@@ -38,6 +38,8 @@ async function StoreCode(req: Request, res: Response) {
 
     // cleaning cache
     client.del("subsData");
+
+    // sending response
     res.status(201).json({ msg: "success" });
   } catch (err) {
     console.log("err", err);
