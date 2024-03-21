@@ -1,4 +1,4 @@
-# CodeDev
+# CodeDev Learn
 
 ### It's a platform to submit code and get outputof submissions in the Dashboard
 
@@ -12,3 +12,12 @@ Code Submissions Dashboard Link (Page 2): [https://codedev-learn.vercel.app/subm
 
 ### System Design Overview:
 ![system Design Overview](https://github.com/subharthihazra/codedev/assets/92659226/63cb303f-4107-498c-8190-d9aa6949e207)
+
+### Key Highlights:
+- Utilized MySQL for storing uploaded code, user input, username, programming language etc.
+  
+- Integrated Judge0 for executing code and retrieving output.Here a token from Judge0 is used to fetch output by requesting repeatedly until its ready, which is then updated in the MySQL database and Redis Cache is also emptied.
+  
+- Used Redis for faster data serving through caching, with periodic cleaning to maintain system efficiency.
+
+- Used NEXT.JS and ShadCN UI in frontend.
