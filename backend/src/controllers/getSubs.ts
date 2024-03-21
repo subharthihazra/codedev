@@ -5,7 +5,13 @@ import client from "../config/redis";
 
 async function getDataFromDB() {
   try {
-    const allCodeSubs = await prisma.codeSubs.findMany();
+    const allCodeSubs = await prisma.codeSubs.findMany({
+      orderBy: [
+        {
+          timestamp: "desc",
+        },
+      ],
+    });
     // console.log("All code submissions:", allCodeSubs);
     return allCodeSubs;
   } catch (error) {
