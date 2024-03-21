@@ -23,3 +23,10 @@ Code Submissions Dashboard Link (Page 2): [https://codedev-learn.vercel.app/subm
 - Used NEXT.JS and ShadCN UI in frontend.
 
 - Used Typescript in both backend and frontend for better consistency, maintainability, safety.
+
+### Services Used:
+- MySQL: freesqldatabase.com
+- Backend API: render.com
+- Redis: render.com
+- Frontend: vercel.com
+- Code Output Generation: judge0 api
