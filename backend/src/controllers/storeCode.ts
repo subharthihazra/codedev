@@ -19,8 +19,12 @@ async function StoreCode(req: Request, res: Response) {
         language,
         code,
         input,
+        output: "Processing Output ...",
       },
     });
+
+    // cleaning cache
+    client.del("subsData");
     res.status(201).json({ msg: "success" });
   } catch (err) {
     console.log("err", err);
