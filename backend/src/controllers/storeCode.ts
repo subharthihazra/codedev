@@ -4,7 +4,7 @@ import langToId from "../config/lang";
 import axios from "axios";
 import { RAPID_API_HOST, RAPID_API_KEY, RAPID_API_URL } from "../config/env";
 import prisma from "../config/prisma";
-import client from "config/redis";
+import client from "../config/redis";
 
 async function StoreCode(req: Request, res: Response) {
   const { username, language, code, input } = req.body;

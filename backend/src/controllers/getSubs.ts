@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../config/prisma";
 import { REDIS_DEF_EXP } from "../config/env";
-import client from "config/redis";
+import client from "../config/redis";
 
 async function getDataFromDB() {
   try {
