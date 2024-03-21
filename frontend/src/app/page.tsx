@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent } from "react";
+import React, { useState } from "react";
 import {
   CardTitle,
   CardDescription,
@@ -22,8 +22,13 @@ import {
 } from "@/components/ui/select";
 import axios from "axios";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function Submitcode() {
+  const [curstate, setCurstate] = useState<string>("idle");
+  const router = useRouter();
+
   async function handleForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
@@ -44,6 +49,7 @@ function Submitcode() {
       formData?.code?.trim()?.toString() != ""
     ) {
       try {
+        setCurstate("busy");
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_PATH}/codesub`,
           formData
@@ -51,8 +57,12 @@ function Submitcode() {
 
         // Reset the form
         (e.target as HTMLFormElement).reset();
+
+        // Redirect to dashboard
+        router.push("/submissions");
       } catch (error) {
         console.error("Error submitting code:", error);
+        setCurstate("idle");
       }
     }
   }
@@ -118,7 +128,16 @@ function Submitcode() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="ml-auto">Submit</Button>
+            <Button
+              disabled={curstate === "busy" ? true : false}
+              className="ml-auto"
+            >
+              {curstate === "busy" ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Submit"
+              )}
+            </Button>
           </CardFooter>
         </Card>
       </form>
