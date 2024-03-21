@@ -79,6 +79,9 @@ function Submissions() {
   return (
     <>
       <div className="font-mono">
+        <div className="fixed">
+          <CodeViewer ref={dialogTrigger} data={dialogData} />
+        </div>
         <Table className=" bg-white">
           <TableHeader>
             <TableRow>
@@ -168,7 +171,6 @@ function Submissions() {
         {curState === "error" && (
           <div className="mt-10 text-center">Something went wrong!</div>
         )}
-        <CodeViewer ref={dialogTrigger} data={dialogData} />
       </div>
       <div className=" text-slate-900 text-md text-center my-2">
         <Link href="/" target="_blank">
